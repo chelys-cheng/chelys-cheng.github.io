@@ -1,0 +1,99 @@
+# ===========================================
+# Site Information Settings
+# ===========================================
+
+# Site creation time
+since: start - current
+
+# Custom your favicon.ico in `site/source`
+favicon: /favicon.ico
+
+# Set feed link (false | default | your feed link)
+# false: disable
+# default: use `atom.xml`, generator for `hexo-generator-feed`
+rss: default
+
+# ===========================================
+# Menu Settings
+# ===========================================
+menu:
+  Home: /
+  Archives: /archives/
+  Tags: /tags
+  Categories: /categories
+  About: /about
+
+# ===========================================
+# Theme Settings
+# ===========================================
+# theme styling
+# color: Default | Mint Green | Cobalt Blue | Hot Pink | Dark Violet
+theme:
+  color: Mint Green
+  toc: true
+  fancybox: true
+  pjax: true
+
+copyright:
+  enable: true
+  # https://creativecommons.org/
+  license: '<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">署名-非商业性使用-相同方式共享 4.0 国际</a>'
+
+reward:
+  enable: false
+  qrCode:
+    wechat: /image/reward/wechat.png
+    alipay: /image/reward/alipay.png
+
+# ===========================================
+# Social links Settings
+# ===========================================
+social:
+  email: mailto:chelys@163.com
+  stack-overflow:
+  twitter:
+  facebook:
+  linkedin:
+  google:
+  github: https://github.com/chelys-cheng
+  weibo:
+  zhihu:
+  douban:
+  pocket:
+  tumblr:
+  instagram:
+
+# ===========================================
+# Third Party Services Settings
+# ===========================================
+
+# LeanCloud
+leancloud:
+  app_id:
+  app_key:
+
+# Baidu Analytics
+baidu_analytics:
+# Baidu Verification
+baidu_verification:
+
+# Google Analytics
+google_analytics:
+# Google Verification
+google_verification:
+
+# Disqus
+disqus_shortname:
+
+#Changyan
+changyan:
+  appid:
+  appkey:
+
+#LiveRe
+livere_datauid:
+
+# ===========================================
+# Version
+# ===========================================
+version: 2.8.0
