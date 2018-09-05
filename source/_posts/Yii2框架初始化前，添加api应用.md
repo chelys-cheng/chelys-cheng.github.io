@@ -8,16 +8,20 @@ tags: [PHP, Yii2]
 
 步骤完整步骤如下：
 <!--more-->
-
+## 复制创建应用
  - 复制应用`backend`一份，改名为`api`
 
+## 搜索替换应用信息
  - 在`api`文件夹中，搜索`backend`，并修改为`api`
 
     ![应用名及命名空间替换](Yii2框架初始化前，添加api应用/应用名&命名空间替换.png)
+
+## 清除前端文件[针对API]
  - 切换到`api`文件夹下，清除无用的前端文件：
      - `api/views`文件夹
      - `api/web/css`文件夹
 
+## 配置初始化环境
  - 切换到项目根目录，配置初始化环境
      - `environments/dev`文件夹下，复制一份`backend`文件夹，修改为`api`
      - `environments/prod`文件夹下，复制一份`backend`文件夹，修改为`api`
@@ -59,8 +63,8 @@ tags: [PHP, Yii2]
         'Development' => [
             'path' => 'dev',
             'setWritable' => [
-                'api/runtime',
-                'api/web/assets',
+                'api/runtime',                              # 新添加
+                'api/web/assets',                           # 新添加
                 'backend/runtime',
                 'backend/web/assets',
                 'frontend/runtime',
@@ -71,7 +75,7 @@ tags: [PHP, Yii2]
                 'yii_test',
             ],
             'setCookieValidationKey' => [ 
-                'api/config/main-local.php',
+                'api/config/main-local.php',                # 新添加
                 'backend/config/main-local.php',
                 'common/config/codeception-local.php',
                 'frontend/config/main-local.php',
@@ -80,8 +84,8 @@ tags: [PHP, Yii2]
         'Production' => [
             'path' => 'prod',
             'setWritable' => [
-                'api/runtime',
-                'api/web/assets',
+                'api/runtime',                              # 新添加
+                'api/web/assets',                           # 新添加
                 'backend/runtime',
                 'backend/web/assets',
                 'frontend/runtime',
@@ -91,16 +95,17 @@ tags: [PHP, Yii2]
                 'yii',
             ],
             'setCookieValidationKey' => [
-                'api/config/main-local.php',
+                'api/config/main-local.php',                # 新添加
                 'backend/config/main-local.php',
                 'frontend/config/main-local.php',
             ],
         ],
     ];
 ```
-【题外】由文件顶端的注释可以看出，Yii2框架是支持自定义环境配置的。
+  **题外：**由文件顶端的注释可以看出，Yii2框架是支持自定义环境配置的。
 
- - 在`codeception.yml`(作用于自动测试)中添加初始化配置:
+## 自动测试初始化配置
+ - 在`codeception.yml`中添加初始化配置:
 ```yaml
     # global codeception file to run tests from all apps
     include:
@@ -113,5 +118,7 @@ tags: [PHP, Yii2]
     settings:
         colors: true
 ```
- - init初始化框架,见[Yii2框架中初始化脚本init代码解读](https://chelys-cheng.github.io/2018/09/04/Yii2框架中初始化脚本init代码解读/)
+## 添加完成，运行命令
+ - 运行`init`初始化框架
+ `init`指令脚本源代码可见[Yii2框架中初始化脚本init代码解读](https://chelys-cheng.github.io/2018/09/04/Yii2框架中初始化脚本init代码解读/)
 

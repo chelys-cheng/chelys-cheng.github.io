@@ -9,18 +9,18 @@ tags: [JavaScript, npm, Linux]
 
 安装npm时，我的做法是从淘宝的npm镜像下载源文件，直接解压使用。
 ```
-wget https://npm.taobao.org/mirrors/npm/v6.1.0.tar.gz
-tar v6.1.0.tar.gz
-cd npm-6.1.0/bin
-./npm -v
+[me@localhost ~]$ wget https://npm.taobao.org/mirrors/npm/v6.1.0.tar.gz
+[me@localhost ~]$ tar xzf v6.1.0.tar.gz
+[me@localhost ~]$ cd npm-6.1.0/bin
+[me@localhost bin]$ ./npm -v
 ```
-但是出现了错误[/my/home/为个人账户文件夹]：
+但是出现了错误[/home/me/为个人账户文件夹]：
 ```
 module.js:549
     throw err;
     ^
 
-Error: Cannot find module '/my/home/npm-6.1.0/bin/node_modules/npm/bin/npm-cli.js'
+Error: Cannot find module '/home/me/npm-6.1.0/bin/node_modules/npm/bin/npm-cli.js'
     at Function.Module._resolveFilename (module.js:547:15)
     at Function.Module._load (module.js:474:25)
     at Function.Module.runMain (module.js:693:10)
@@ -29,7 +29,7 @@ Error: Cannot find module '/my/home/npm-6.1.0/bin/node_modules/npm/bin/npm-cli.j
 ```
 **第一反应**是网上直接搜索答案，有说需要重装`nodejs`的，但是重装后问题依旧，于是决定自己定位解决。
 
-在重新审视了一下错误提示后，初步判定是文件缺失，然后根据在源文件夹中搜索`npm-cli.js`文件，发现其路径为：`/my/home/npm-6.1.0/bin/npm-cli.js`，既然文件存在，那应该是路径标识错误的问题了，于是打开`npm-6.1.0/bin/npm`，可以看到
+在重新审视了一下错误提示后，初步判定是文件缺失，然后根据在源文件夹中搜索`npm-cli.js`文件，发现其路径为：`/home/me/npm-6.1.0/bin/npm-cli.js`，既然文件存在，那应该是路径标识错误的问题了，于是打开`npm-6.1.0/bin/npm`，可以看到
 ```
 NPM_CLI_JS="$basedir/node_modules/npm/bin/npm-cli.js"
 ```
@@ -41,8 +41,8 @@ NPM_CLI_JS="$basedir/npm-cli.js"
 
 于是将文件夹移动，并建立软连接
 ```
-sudo mv /my/home/npm-6.1.0/ /usr/local/npm
-sudo ln -s /usr/local/npm/bin/npm /usr/local/bin/npm
+[me@localhost bin]$ sudo mv /home/me/npm-6.1.0/ /usr/local/npm
+[me@localhost bin]$ sudo ln -s /usr/local/npm/bin/npm /usr/local/bin/npm
 ```
 此时运行`npm -v`出现了错误：
 ```
