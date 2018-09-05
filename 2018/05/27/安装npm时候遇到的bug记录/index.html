@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="安装npm时候遇到的bug记录"/>
+
+
+
+
+  <meta name="keywords" content="Linux, JavaScript, npm, 程扣扣的博客" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="程扣扣的博客">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.8.0" />
+
+
+
+<link rel="canonical" href="http://yoursite.com/2018/05/27/安装npm时候遇到的bug记录/"/>
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.8.0" />
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+<script>
+  window.config = {"title":"程扣扣的博客","subtitle":null,"description":null,"author":"程扣扣","language":"zh_CN","timezone":"Asia/Shanghai","url":"http://yoursite.com","root":"/","permalink":":year/:month/:day/:title/","permalink_defaults":null,"source_dir":"source","public_dir":"public","tag_dir":"tags","archive_dir":"archives","category_dir":"categories","code_dir":"downloads/code","i18n_dir":":lang","skip_render":null,"new_post_name":":title.md","default_layout":"post","titlecase":false,"external_link":true,"filename_case":0,"render_drafts":false,"post_asset_folder":true,"relative_link":false,"future":true,"highlight":{"enable":true,"auto_detect":true,"line_number":true,"tab_replace":null,"hljs":true,"first_line_number":"always1"},"default_category":"uncategorized","category_map":null,"tag_map":null,"date_format":"YYYY-MM-DD","time_format":"HH:mm:ss","per_page":10,"pagination_dir":"page","theme":{"color":"Mint Green","toc":true,"fancybox":true,"pjax":true},"deploy":{"type":"git","repo":"git@github.com:chelys-cheng/chelys-cheng.github.io","branch":"master"},"ignore":[],"keywords":null,"index_generator":{"per_page":10,"order_by":"-date","path":""},"search":{"path":"search.json","field":"post"},"archive_generator":{"per_page":10,"yearly":true,"monthly":true,"daily":false},"category_generator":{"per_page":10},"tag_generator":{"per_page":10},"server":{"port":4000,"log":false,"ip":"0.0.0.0","compress":false,"header":true},"marked":{"gfm":true,"pedantic":false,"sanitize":false,"tables":true,"breaks":true,"smartLists":true,"smartypants":true,"modifyAnchors":"","autolink":true},"since":"start - current","favicon":"/favicon.ico","rss":"default","menu":{"Home":"/","Archives":"/archives/","Tags":"/tags","Categories":"/categories","About":"/about"},"copyright":{"enable":true,"license":"<a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc-sa/4.0/\" target=\"_blank\">署名-非商业性使用-相同方式共享 4.0 国际</a>"},"reward":{"enable":false,"qrCode":{"wechat":"/image/reward/wechat.png","alipay":"/image/reward/alipay.png"}},"social":{"email":"mailto:chelys@163.com","stack-overflow":null,"twitter":null,"facebook":null,"linkedin":null,"google":null,"github":"https://github.com/chelys-cheng","weibo":null,"zhihu":null,"douban":null,"pocket":null,"tumblr":null,"instagram":null},"leancloud":{"app_id":null,"app_key":null},"baidu_analytics":null,"baidu_verification":null,"google_analytics":null,"google_verification":null,"disqus_shortname":null,"changyan":{"appid":null,"appkey":null},"livere_datauid":null,"version":"2.8.0"};
+</script>
+
+    <title> 安装npm时候遇到的bug记录 - 程扣扣的博客 </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">程扣扣的博客</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            标签
+          
+        </li>
+      </a>
+    
+      <a href="/categories">
+        <li class="mobile-menu-item">
+          
+          
+            分类
+          
+        </li>
+      </a>
+    
+      <a href="/about">
+        <li class="mobile-menu-item">
+          
+          
+            关于
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">程扣扣的博客</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories">
+            
+            
+              分类
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            
+            
+              关于
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          安装npm时候遇到的bug记录
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-05-27
+        </span>
+        
+          <div class="post-category">
+            
+              <a href="/categories/Linux/">Linux</a>
+            
+              <a href="/categories/Linux/npm/">npm</a>
+            
+          </div>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+    <div class="post-content">
+      
+        <p>之前在装npm的时候，遇到了一个问题，自己做了一些修改，然后成功安装成功，在此做一下记录。<br><a id="more"></a></p>
+<p>安装npm时，我的做法是从淘宝的npm镜像下载源文件，直接解压使用。<br><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs undefined">wget https://npm.taobao.org/mirrors/npm/v6<span class="hljs-meta">.1</span><span class="hljs-meta">.0</span>.tar.gz<br>tar v6<span class="hljs-meta">.1</span><span class="hljs-meta">.0</span>.tar.gz<br>cd npm-<span class="hljs-number">6.1</span><span class="hljs-meta">.0</span>/bin<br>./npm -v<br></code></pre></td></tr></table></figure></p>
+<p>但是出现了错误[/my/home/为个人账户文件夹]：<br><figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs undefined"><span class="hljs-keyword">module</span>.js:<span class="hljs-number">549</span><br>    <span class="hljs-keyword">throw</span> err;<br>    ^<br><br><span class="hljs-keyword">Error</span>: Cannot find <span class="hljs-keyword">module</span> <span class="hljs-comment">'/my/home/npm-6.1.0/bin/node_modules/npm/bin/npm-cli.js'</span><br>    at <span class="hljs-keyword">Function</span>.<span class="hljs-keyword">Module</span>._resolveFilename (<span class="hljs-keyword">module</span>.js:<span class="hljs-number">547</span>:<span class="hljs-number">15</span>)<br>    at <span class="hljs-keyword">Function</span>.<span class="hljs-keyword">Module</span>._load (<span class="hljs-keyword">module</span>.js:<span class="hljs-number">474</span>:<span class="hljs-number">25</span>)<br>    at <span class="hljs-keyword">Function</span>.<span class="hljs-keyword">Module</span>.runMain (<span class="hljs-keyword">module</span>.js:<span class="hljs-number">693</span>:<span class="hljs-number">10</span>)<br>    at startup (bootstrap_node.js:<span class="hljs-number">188</span>:<span class="hljs-number">16</span>)<br>    at bootstrap_node.js:<span class="hljs-number">609</span>:<span class="hljs-number">3</span><br></code></pre></td></tr></table></figure></p>
+<p><strong>第一反应</strong>是网上直接搜索答案，有说需要重装<code>nodejs</code>的，但是重装后问题依旧，于是决定自己定位解决。</p>
+<p>在重新审视了一下错误提示后，初步判定是文件缺失，然后根据在源文件夹中搜索<code>npm-cli.js</code>文件，发现其路径为：<code>/my/home/npm-6.1.0/bin/npm-cli.js</code>，既然文件存在，那应该是路径标识错误的问题了，于是打开<code>npm-6.1.0/bin/npm</code>，可以看到<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs undefined"><span class="hljs-attr">NPM_CLI_JS</span>=<span class="hljs-string">"$basedir/node_modules/npm/bin/npm-cli.js"</span><br></code></pre></td></tr></table></figure></p>
+<p>这里表示读取的<code>npm-cli.js</code>的位置，基本上算是写死，并且位置与实际的位置有冲突，将这句注释，并在下面修改位置信息<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs undefined"><span class="hljs-attr">NPM_CLI_JS</span>=<span class="hljs-string">"$basedir/npm-cli.js"</span><br></code></pre></td></tr></table></figure></p>
+<p>然后保存退出，再次运行<code>./npm -v</code>，得到正常版本信息。</p>
+<p>于是将文件夹移动，并建立软连接<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs undefined">sudo mv <span class="hljs-regexp">/my/</span>home<span class="hljs-regexp">/npm-6.1.0/</span> <span class="hljs-regexp">/usr/</span>local/npm<br>sudo ln -s <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/npm/</span>bin<span class="hljs-regexp">/npm /</span>usr<span class="hljs-regexp">/local/</span>bin/npm<br></code></pre></td></tr></table></figure></p>
+<p>此时运行<code>npm -v</code>出现了错误：<br><figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs undefined"><span class="hljs-keyword">module</span>.js:<span class="hljs-number">549</span><br>    <span class="hljs-keyword">throw</span> err;<br>    ^<br><br><span class="hljs-keyword">Error</span>: Cannot find <span class="hljs-keyword">module</span> <span class="hljs-comment">'/usr/local/bin/npm-cli.js'</span><br>    at <span class="hljs-keyword">Function</span>.<span class="hljs-keyword">Module</span>._resolveFilename (<span class="hljs-keyword">module</span>.js:<span class="hljs-number">547</span>:<span class="hljs-number">15</span>)<br>    at <span class="hljs-keyword">Function</span>.<span class="hljs-keyword">Module</span>._load (<span class="hljs-keyword">module</span>.js:<span class="hljs-number">474</span>:<span class="hljs-number">25</span>)<br>    at <span class="hljs-keyword">Function</span>.<span class="hljs-keyword">Module</span>.runMain (<span class="hljs-keyword">module</span>.js:<span class="hljs-number">693</span>:<span class="hljs-number">10</span>)<br>    at startup (bootstrap_node.js:<span class="hljs-number">188</span>:<span class="hljs-number">16</span>)<br>    at bootstrap_node.js:<span class="hljs-number">609</span>:<span class="hljs-number">3</span><br></code></pre></td></tr></table></figure></p>
+<p>继续分析错误，基本可以确定依旧是<strong>文件位置定位错误</strong>的问题，打开<code>/usr/local/npm/bin/npm</code>，可以找到：<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs undefined"><span class="hljs-attribute">basedir</span>=`dirname <span class="hljs-string">"<span class="hljs-variable">$0</span>"</span>`<br></code></pre></td></tr></table></figure></p>
+<p>它的位置指向的是<strong>软连接文件</strong>所在的路径，而非我们希望的<strong>实际文件</strong>所在的文件路径，于是只要将它修改成<strong>实际文件</strong>的绝对路径就好了：<br><figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs undefined">basedir=$(<span class="hljs-keyword">dirname</span> $(readlink -f $0))<br></code></pre></td></tr></table></figure></p>
+<p>修改完了之后，保存退出，再试下<code>npm -v</code>显示出正确的版本信息<code>6.1.0</code>，说明正确安装结束。</p>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>原文作者: </span>
+      <a href="http://yoursite.com">程扣扣</a>
+    </p>
+    <p class="copyright-item">
+      <span>原文链接: </span>
+      <a href="http://yoursite.com/2018/05/27/安装npm时候遇到的bug记录/">http://yoursite.com/2018/05/27/安装npm时候遇到的bug记录/</a>
+    </p>
+    <p class="copyright-item">
+      <span>许可协议: </span>
+      
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">署名-非商业性使用-相同方式共享 4.0 国际</a>
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/Linux/">Linux</a>
+            
+              <a href="/tags/JavaScript/">JavaScript</a>
+            
+              <a href="/tags/npm/">npm</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2018/05/29/SSH证书登录/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">SSH证书登录</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:mailto:chelys@163.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://github.com/chelys-cheng" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+      
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      start - current - 
+    
+    2018
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">程扣扣</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  
+
+  
+
+
+
+    
+  
+
+
+
+  
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.8.0"></script>
+
+  </body>
+</html>
