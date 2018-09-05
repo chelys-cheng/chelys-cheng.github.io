@@ -1,0 +1,13 @@
+---
+title: Linux常用命令
+date: 2018-09-04 14:15:32
+categories: [Linux]
+tags: [Linux]
+---
+文章用于记录平常工作中常涉及到的Linux指令，方便查询：
+|指令|作用|
+|---|---|
+|uname -a|显示内核信息|
+|cat /etc/redhat-release|显示发行版本（redhat系）|
+|cat /etc/issue|显示发行版本（Ubuntu）|
+
