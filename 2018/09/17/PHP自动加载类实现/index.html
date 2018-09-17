@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="PHP自动加载类实现"/>
+
+
+
+
+  <meta name="keywords" content="PHP, 程扣扣的博客" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="程扣扣的博客">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.8.0" />
+
+
+
+<link rel="canonical" href="http://yoursite.com/2018/09/17/PHP自动加载类实现/"/>
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.8.0" />
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+<script>
+  window.config = {"title":"程扣扣的博客","subtitle":null,"description":null,"author":"程扣扣","language":"zh_CN","timezone":"Asia/Shanghai","url":"http://yoursite.com","root":"/","permalink":":year/:month/:day/:title/","permalink_defaults":null,"source_dir":"source","public_dir":"public","tag_dir":"tags","archive_dir":"archives","category_dir":"categories","code_dir":"downloads/code","i18n_dir":":lang","skip_render":null,"new_post_name":":title.md","default_layout":"post","titlecase":false,"external_link":true,"filename_case":0,"render_drafts":false,"post_asset_folder":true,"relative_link":false,"future":true,"highlight":{"enable":true,"auto_detect":true,"line_number":true,"tab_replace":null,"hljs":true,"first_line_number":"always1"},"default_category":"uncategorized","category_map":null,"tag_map":null,"date_format":"YYYY-MM-DD","time_format":"HH:mm:ss","per_page":10,"pagination_dir":"page","theme":{"color":"Mint Green","toc":true,"fancybox":true,"pjax":true},"deploy":{"type":"git","repo":"git@github.com:chelys-cheng/chelys-cheng.github.io","branch":"master"},"ignore":[],"keywords":null,"index_generator":{"per_page":10,"order_by":"-date","path":""},"search":{"path":"search.json","field":"post"},"archive_generator":{"per_page":10,"yearly":true,"monthly":true,"daily":false},"category_generator":{"per_page":10},"tag_generator":{"per_page":10},"marked":{"gfm":true,"pedantic":false,"sanitize":false,"tables":true,"breaks":true,"smartLists":true,"smartypants":true,"modifyAnchors":"","autolink":true},"server":{"port":4000,"log":false,"ip":"0.0.0.0","compress":false,"header":true},"since":"start - current","favicon":"/favicon.ico","rss":"default","menu":{"Home":"/","Archives":"/archives/","Tags":"/tags","Categories":"/categories","About":"/about"},"copyright":{"enable":true,"license":"<a rel=\"license\" href=\"http://creativecommons.org/licenses/by-nc-sa/4.0/\" target=\"_blank\">署名-非商业性使用-相同方式共享 4.0 国际</a>"},"reward":{"enable":false,"qrCode":{"wechat":"/image/reward/wechat.png","alipay":"/image/reward/alipay.png"}},"social":{"email":"mailto:chelys@163.com","stack-overflow":null,"twitter":null,"facebook":null,"linkedin":null,"google":null,"github":"https://github.com/chelys-cheng","weibo":null,"zhihu":null,"douban":null,"pocket":null,"tumblr":null,"instagram":null},"leancloud":{"app_id":null,"app_key":null},"baidu_analytics":null,"baidu_verification":null,"google_analytics":null,"google_verification":null,"disqus_shortname":null,"changyan":{"appid":null,"appkey":null},"livere_datauid":null,"version":"2.8.0"};
+</script>
+
+    <title> PHP自动加载类实现 - 程扣扣的博客 </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">程扣扣的博客</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            标签
+          
+        </li>
+      </a>
+    
+      <a href="/categories">
+        <li class="mobile-menu-item">
+          
+          
+            分类
+          
+        </li>
+      </a>
+    
+      <a href="/about">
+        <li class="mobile-menu-item">
+          
+          
+            关于
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">程扣扣的博客</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories">
+            
+            
+              分类
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            
+            
+              关于
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          PHP自动加载类实现
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-09-17
+        </span>
+        
+          <div class="post-category">
+            
+              <a href="/categories/PHP/">PHP</a>
+            
+          </div>
+        
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#类的自动加载"><span class="toc-text">类的自动加载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#spl-autoload-register"><span class="toc-text">spl_autoload_register</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#说明"><span class="toc-text">说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参数"><span class="toc-text">参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#返回值"><span class="toc-text">返回值</span></a></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <p>有关类的自动加载，在<a href="http://php.net/manual/zh/index.php" target="_blank" rel="noopener">官方文档</a>中有详细说明:</p>
+<blockquote>
+<h2 id="类的自动加载"><a href="#类的自动加载" class="headerlink" title="类的自动加载"></a>类的自动加载</h2><p>在编写面向对象（OOP） 程序时，很多开发者为每个类新建一个 PHP 文件。 这会带来一个烦恼：每个脚本的开头，都需要包含（include）一个长长的列表（每个类都有个文件）。</p>
+<p>在 PHP 5 中，已经不再需要这样了。 </p>
+<p>spl_autoload_register() 函数可以注册任意数量的自动加载器，当使用尚未被定义的类（class）和接口（interface）时自动去加载。通过注册自动加载器，脚本引擎在 PHP 出错失败前有了最后一个机会加载所需的类。</p>
+</blockquote>
+<a id="more"></a>
+<p>详情点击<a href="http://php.net/manual/zh/language.oop5.autoload.php" target="_blank" rel="noopener">这里</a>，其中，涉及到方法<code>spl_autoload_register()</code>，以下是官方文档说明：</p>
+<blockquote>
+<h2 id="spl-autoload-register"><a href="#spl-autoload-register" class="headerlink" title="spl_autoload_register"></a>spl_autoload_register</h2><p>(PHP 5 &gt;= 5.1.0, PHP 7)</p>
+<p>spl_autoload_register — 注册给定的函数作为 __autoload 的实现</p>
+<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>bool spl_autoload_register ([ callable $autoload_function [, bool $throw = true [, bool $prepend = false ]]] )</p>
+<p>将函数注册到SPL __autoload函数队列中。如果该队列中的函数尚未激活，则激活它们。</p>
+<p>如果在你的程序中已经实现了__autoload()函数，它必须显式注册到__autoload()队列中。因为 spl_autoload_register()函数会将Zend Engine中的__autoload()函数取代为spl_autoload()或spl_autoload_call()。</p>
+<p>如果需要多条 autoload 函数，spl_autoload_register() 满足了此类需求。 它实际上创建了 autoload 函数的队列，按定义时的顺序逐个执行。相比之下， __autoload() 只可以定义一次。</p>
+<h2 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h2><p>autoload_function</p>
+<p>欲注册的自动装载函数。如果没有提供任何参数，则自动注册 autoload 的默认实现函数spl_autoload()。</p>
+<p>throw</p>
+<p>此参数设置了 autoload_function 无法成功注册时， spl_autoload_register()是否抛出异常。</p>
+<p>prepend</p>
+<p>如果是 true，spl_autoload_register() 会添加函数到队列之首，而不是队列尾部。</p>
+<h2 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h2><p>成功时返回 TRUE， 或者在失败时返回 FALSE。</p>
+</blockquote>
+<p>通过官方说明，可以知道，<code>spl_autoload_register()</code>方法可以将自定义方法注册为自动加载方法，当脚本程序中，出现未定义的类的时候，便会调用注册过的自定义方法，如以下程序中:<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br>spl_autoload_register(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>&#123;<br>    <span class="hljs-keyword">echo</span> <span class="hljs-string">'Foo is an unknown method, and I don\'t want to load it.'</span>;<br>    <span class="hljs-keyword">exit</span>;<br>&#125;);`<br><br>$foo = <span class="hljs-keyword">new</span> Foo();<br></code></pre></td></tr></table></figure></p>
+<p>运行结果为:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">Foo is an unknown method, and I don<span class="hljs-string">'t want load it.</span><br></code></pre></td></tr></table></figure></p>
+<p>即当脚本程序中出现未知的类的时候，PHP会调用在<code>spl_autoload_register()</code>中自定义的方法，来做一些处理，当然，这个自定义程序不可能如上面的程序这么定义，一般是做一些包含文件的预处理，或者直接包含文件。<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-comment"># ./BaseYii.php</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BaseYii</span><br></span>&#123;<br>    <span class="hljs-comment">// 类文件路径映射表</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> $classMap = [];<br><br>    <span class="hljs-comment">// 自动加载方法</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">autoload</span><span class="hljs-params">($className)</span><br>    </span>&#123;<br>        <span class="hljs-keyword">if</span>(<span class="hljs-keyword">isset</span>(<span class="hljs-keyword">static</span>::$classMap[$className]))&#123;<br>            $classFile = <span class="hljs-keyword">static</span>::$classMap[$className];<br>        &#125;<span class="hljs-keyword">else</span>&#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> \<span class="hljs-keyword">Exception</span>(<span class="hljs-string">"Unknown Class."</span>);<br>        &#125;<br><br>        <span class="hljs-keyword">include</span> $classFile;<br>    &#125;<br>&#125;<br><br>spl_autoload_register([<span class="hljs-string">'BaseYii'</span>, <span class="hljs-string">'autoload'</span>]);<br>Yii::$classMap = <span class="hljs-keyword">require</span> <span class="hljs-keyword">__DIR__</span> . <span class="hljs-string">'/classes.php'</span>;<br><br><span class="hljs-comment"># ./classes.php</span><br><span class="hljs-meta">&lt;?php</span><br><span class="hljs-comment">// 表示路径映射表</span><br><span class="hljs-keyword">return</span> [<br>    <span class="hljs-string">'yii\base\BaseObject'</span> =&gt; <span class="hljs-keyword">__DIR__</span> . <span class="hljs-string">'/base/BaseObject.php'</span><br>];<br><br><span class="hljs-comment"># ./base/BaseObject.php</span><br><span class="hljs-meta">&lt;?php</span><br><span class="hljs-comment">// 简单的一个类</span><br><span class="hljs-keyword">namespace</span> <span class="hljs-title">yii</span>\<span class="hljs-title">base</span>;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BaseObject</span><br></span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span><span class="hljs-params">()</span><br>    </span>&#123;<br>        <span class="hljs-keyword">echo</span> <span class="hljs-string">'New BaseObject instance.'</span>;<br>    &#125;   <br>&#125;<br><br><span class="hljs-comment"># ./test.php</span><br><span class="hljs-meta">&lt;?php</span><br><span class="hljs-comment">// 测试脚本文件</span><br><span class="hljs-keyword">require</span> <span class="hljs-keyword">__DIR__</span> . <span class="hljs-string">'/BaseYii.php'</span>;<br><br><span class="hljs-keyword">use</span> <span class="hljs-title">yii</span>\<span class="hljs-title">base</span>\<span class="hljs-title">BaseObject</span>;<br><br>$baseObject = <span class="hljs-keyword">new</span> BaseObject();<br></code></pre></td></tr></table></figure></p>
+<p>在<code>test.php</code>同级目录下运行<code>php ./test.php</code>，将得到结果:<br><figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs undefined"><span class="hljs-keyword">New</span> BaseObject instance.<br></code></pre></td></tr></table></figure></p>
+<p>如此便实现了一个简单的自动加载功能。</p>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>原文作者: </span>
+      <a href="http://yoursite.com">程扣扣</a>
+    </p>
+    <p class="copyright-item">
+      <span>原文链接: </span>
+      <a href="http://yoursite.com/2018/09/17/PHP自动加载类实现/">http://yoursite.com/2018/09/17/PHP自动加载类实现/</a>
+    </p>
+    <p class="copyright-item">
+      <span>许可协议: </span>
+      
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">署名-非商业性使用-相同方式共享 4.0 国际</a>
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/PHP/">PHP</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2018/09/05/Yii2框架Codeception初探/">
+        <span class="next-text nav-default">Yii2框架Codeception初探</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:mailto:chelys@163.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://github.com/chelys-cheng" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+      
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      start - current - 
+    
+    2018
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">程扣扣</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  
+
+  
+
+
+
+    
+  
+
+
+
+  
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.8.0"></script>
+
+  </body>
+</html>
